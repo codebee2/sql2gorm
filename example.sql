@@ -1,0 +1,6 @@
+CREATE TABLE `t_user`
+(
+    `id` bigint(12) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    PRIMARY KEY (`id`),
+    ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户';
+)

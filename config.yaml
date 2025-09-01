@@ -1,0 +1,9 @@
+# SQL2GORM配置文件
+# 使用SQL文件方式
+sql_file: "example.sql"
+output_file: "models/user.go"
+table_name: "t_user"
+package_name: "models"
+
+# 使用DSN方式（优先级高于SQL文件）
+# dsn: "user:password@tcp(localhost:3306)/database?charset=utf8mb4&parseTime=True&loc=Local" 

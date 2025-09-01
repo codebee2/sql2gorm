@@ -1,0 +1,14 @@
+# SQL2GORM配置文件 - DSN模式
+# 使用DSN连接数据库，直接读取表结构
+
+# 数据库连接字符串
+dsn: "user:password@tcp(localhost:3306)/database?charset=utf8mb4&parseTime=True&loc=Local"
+
+# 输出文件路径
+output_file: "models/user_model.go"
+
+# 要生成模型的表名
+table_name: "t_user"
+
+# Go包名
+package_name: "models" 
