@@ -74,8 +74,8 @@ func (g *GORMGenerator) generateStructName(tableName string) string {
 	parts := strings.Split(tableName, "_")
 	var nameParts []string
 
-	for _, part := range parts {
-		if part != "" && part != "ny" {
+	for _, part := range parts[1:] {
+		if part != "" {
 			nameParts = append(nameParts, strings.Title(part))
 		}
 	}
