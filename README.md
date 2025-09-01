@@ -41,6 +41,7 @@ sql2gorm --help
 
 ### 快速体验
 
+#### Linux/macOS
 ```bash
 # 使用DSN连接数据库（推荐）
 sql2gorm \
@@ -55,6 +56,36 @@ sql2gorm \
   --table products
 ```
 
+#### Windows
+```cmd
+# 使用DSN连接数据库（推荐）
+sql2gorm ^
+  --dsn "user:password@tcp(localhost:3306)/database?charset=utf8mb4" ^
+  --output models/user.go ^
+  --table users
+
+# 使用SQL文件
+sql2gorm ^
+  --sql schema.sql ^
+  --output models/product.go ^
+  --table products
+```
+
+#### PowerShell
+```powershell
+# 使用DSN连接数据库（推荐）
+sql2gorm `
+  --dsn "user:password@tcp(localhost:3306)/database?charset=utf8mb4" `
+  --output models/user.go `
+  --table users
+
+# 使用SQL文件
+sql2gorm `
+  --sql schema.sql `
+  --output models/product.go `
+  --table products
+```
+
 ---
 
 ## 📖 使用指南
@@ -62,11 +93,31 @@ sql2gorm \
 ### DSN方式（推荐）
 
 #### 命令行参数
+
+**Linux/macOS:**
 ```bash
 sql2gorm \
   --dsn "user:password@tcp(localhost:3306)/database?charset=utf8mb4" \
   --output models/user.go \
   --table users \
+  --package models
+```
+
+**Windows CMD:**
+```cmd
+sql2gorm ^
+  --dsn "user:password@tcp(localhost:3306)/database?charset=utf8mb4" ^
+  --output models/user.go ^
+  --table users ^
+  --package models
+```
+
+**Windows PowerShell:**
+```powershell
+sql2gorm `
+  --dsn "user:password@tcp(localhost:3306)/database?charset=utf8mb4" `
+  --output models/user.go `
+  --table users `
   --package models
 ```
 
@@ -79,11 +130,19 @@ table_name: "users"
 package_name: "models"
 ```
 
+**Linux/macOS:**
 ```bash
 sql2gorm --config config-dsn.yaml
 ```
 
+**Windows:**
+```cmd
+sql2gorm --config config-dsn.yaml
+```
+
 #### 环境变量
+
+**Linux/macOS:**
 ```bash
 export SQL2GORM_DSN="user:password@tcp(localhost:3306)/database?charset=utf8mb4"
 export SQL2GORM_OUTPUT_FILE="models/user.go"
@@ -93,14 +152,54 @@ export SQL2GORM_PACKAGE_NAME="models"
 sql2gorm
 ```
 
+**Windows CMD:**
+```cmd
+set SQL2GORM_DSN=user:password@tcp(localhost:3306)/database?charset=utf8mb4
+set SQL2GORM_OUTPUT_FILE=models/user.go
+set SQL2GORM_TABLE_NAME=users
+set SQL2GORM_PACKAGE_NAME=models
+
+sql2gorm
+```
+
+**Windows PowerShell:**
+```powershell
+$env:SQL2GORM_DSN="user:password@tcp(localhost:3306)/database?charset=utf8mb4"
+$env:SQL2GORM_OUTPUT_FILE="models/user.go"
+$env:SQL2GORM_TABLE_NAME="users"
+$env:SQL2GORM_PACKAGE_NAME="models"
+
+sql2gorm
+```
+
 ### SQL文件方式
 
 #### 命令行参数
+
+**Linux/macOS:**
 ```bash
 sql2gorm \
   --sql schema.sql \
   --output models/product.go \
   --table products \
+  --package models
+```
+
+**Windows CMD:**
+```cmd
+sql2gorm ^
+  --sql schema.sql ^
+  --output models/product.go ^
+  --table products ^
+  --package models
+```
+
+**Windows PowerShell:**
+```powershell
+sql2gorm `
+  --sql schema.sql `
+  --output models/product.go `
+  --table products `
   --package models
 ```
 
@@ -113,7 +212,13 @@ table_name: "products"
 package_name: "models"
 ```
 
+**Linux/macOS:**
 ```bash
+sql2gorm --config config.yaml
+```
+
+**Windows:**
+```cmd
 sql2gorm --config config.yaml
 ```
 
@@ -132,6 +237,34 @@ sql2gorm --config config.yaml
 | `package_name` | string | 否 | Go包名 | `models` |
 
 > **注意**: `dsn` 和 `sql_file` 至少需要提供一个，DSN优先级更高
+
+### Windows 使用注意事项
+
+#### 路径问题
+Windows系统在配置文件中使用路径时需要注意：
+
+**推荐方式（使用正斜杠）：**
+```yaml
+# config-dsn.yaml
+dsn: "user:password@tcp(localhost:3306)/database?charset=utf8mb4"
+output_file: "E:/project/models/user.go"  # 使用正斜杠
+table_name: "users"
+package_name: "models"
+```
+
+**转义方式（使用双反斜杠）：**
+```yaml
+# config-dsn.yaml
+dsn: "user:password@tcp(localhost:3306)/database?charset=utf8mb4"
+output_file: "E:\\project\\models\\user.go"  # 使用双反斜杠转义
+table_name: "users"
+package_name: "models"
+```
+
+#### 命令行换行符
+- **CMD**: 使用 `^` 作为换行符
+- **PowerShell**: 使用 `` ` `` 作为换行符
+- **Git Bash**: 使用 `\` 作为换行符（与Linux/macOS相同）
 
 ### 环境变量
 
@@ -162,6 +295,12 @@ root:password@tcp(localhost:3306)/testdb?charset=utf8mb4&parseTime=True&loc=Loca
 
 # 远程数据库
 user:pass@tcp(db.example.com:3306)/production?charset=utf8mb4&timeout=10s
+
+# Windows路径示例（使用正斜杠）
+output_file: "E:/project/models/user.go"
+
+# Windows路径示例（使用双反斜杠转义）
+output_file: "E:\\project\\models\\user.go"
 ```
 
 ---
@@ -246,6 +385,8 @@ sql2gorm/
 ```
 
 ### 构建和安装
+
+**Linux/macOS:**
 ```bash
 # 方式1：使用 go install 安装（推荐）
 go install github.com/codebee2/sql2gorm@latest
@@ -258,6 +399,21 @@ make build
 
 # 运行测试
 make test
+```
+
+**Windows:**
+```cmd
+# 方式1：使用 go install 安装（推荐）
+go install github.com/codebee2/sql2gorm@latest
+
+# 方式2：从源码构建
+git clone https://github.com/codebee2/sql2gorm.git
+cd sql2gorm
+go mod tidy
+go build -o sql2gorm.exe main.go
+
+# 运行测试
+go test ./...
 ```
 
 ### 技术栈
