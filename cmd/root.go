@@ -5,11 +5,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"sql2gorm/config"
-	"sql2gorm/database"
-	"sql2gorm/generator"
-	"sql2gorm/parser"
-
+	"github.com/codebee2/sql2gorm/config"
+	"github.com/codebee2/sql2gorm/database"
+	"github.com/codebee2/sql2gorm/generator"
+	"github.com/codebee2/sql2gorm/parser"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

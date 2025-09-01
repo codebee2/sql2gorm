@@ -3,10 +3,10 @@ package generator
 import (
 	"fmt"
 	"go/format"
-	"sql2gorm/config"
-	"sql2gorm/parser"
 	"strings"
 
+	"github.com/codebee2/sql2gorm/config"
+	"github.com/codebee2/sql2gorm/parser"
 	"github.com/jinzhu/inflection"
 )
 

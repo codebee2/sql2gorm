@@ -1,4 +1,4 @@
-module sql2gorm
+module github.com/codebee2/sql2gorm
 
 go 1.22.2
 

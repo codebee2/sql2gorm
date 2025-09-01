@@ -1,7 +1,7 @@
 package database
 
 import (
-	"sql2gorm/parser"
+	"github.com/codebee2/sql2gorm/parser"
 )
 
 // ToParserTableInfo 将数据库表结构信息转换为解析器的表信息格式

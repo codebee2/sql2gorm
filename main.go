@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"sql2gorm/cmd"
+	"github.com/codebee2/sql2gorm/cmd"
 )
 
 func main() {
